@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const Filme = mongoose.model('Filme', { 
     Title: String,
     description: String,
-    imageUrl: String,
+    lancamento: String,
     trailerUrl: String 
 });
 
