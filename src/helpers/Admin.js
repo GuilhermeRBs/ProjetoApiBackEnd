@@ -17,7 +17,7 @@ checkAdm(req, res, next){
             }
         })
 
-    }catch(error ){
+    }catch(error){
         res.status(400).json({msg: 'Token inválido!'})
     }
 
