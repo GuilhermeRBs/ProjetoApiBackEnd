@@ -9,9 +9,8 @@ const Auth = require('../helpers/Auth')
 const Admin = require('../helpers/Admin')
 
 
-
 //Registrar usuario
-router.post('/auth/register', async(req, res) => {
+router.post('/user/register', async(req, res) => {
 
     const {name, email, password, confirmpassword} = req.body
 
@@ -125,7 +124,7 @@ router.delete("/user/admin/:id", Auth.checkToken, Admin.checkAdm, async (req, re
 })
 
 //Registrar admin
-router.post("/user/admin", Auth.checkToken, Admin.checkAdm, async (req, res) => {
+router.post("/user/admin/register", Auth.checkToken, Admin.checkAdm, async (req, res) => {
     
     const {name, email, password, confirmpassword} = req.body
 

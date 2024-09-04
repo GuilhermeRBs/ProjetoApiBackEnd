@@ -5,6 +5,9 @@ const mongoose = require('mongoose')
 const app = express()
 app.use(express.json())
 
+const swaggerUi = require('swagger-ui-express');
+const swaggerFile = require('./swagger-output.json');
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
 
 LoginRouter = require('./routes/login')
 app.use('/', LoginRouter)

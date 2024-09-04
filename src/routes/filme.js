@@ -7,7 +7,7 @@ const Auth = require('../helpers/Auth')
 const Admin = require('../helpers/Admin')
 
 
-router.get('/', Auth.checkToken ,async (req, res) => {
+router.get('/',  Auth.checkToken, async (req, res) => {
     const { limite = 10, pagina = 1 } = req.query;
     
     try{
