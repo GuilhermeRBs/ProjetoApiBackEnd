@@ -66,7 +66,12 @@ router.put('/filme/:id', Auth.checkToken, async (req, res) => {
 router.delete('/filme/:id', Admin.checkAdm, async (req,res) =>{
     
     const filme = await Filme.findByIdAndDelete(req.params.id)
+    if(!filme){
+        return res.status(422).json({msg: 'Usuário não encontrado'})
+    }
+
     return res.status(200).json({ filme, msg:'Filme deletado'})
+    
 })
 
 module.exports = router
