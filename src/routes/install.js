@@ -19,10 +19,10 @@ router.get("/install", async (req, res) => {
         logincontagem: 0
     }) 
     user.save()
-    User.create({name: 'Joao', email: 'jao@jao.com', password: 'teste', isAdmin: false})
-    User.create({name: 'Pedro', email: 'Pedro@gmail.com', password: 'teste', isAdmin: false})
-    User.create({name: 'Guilherme', email: 'Gui@gmail.com', password: 'teste', isAdmin: false})
-    User.create({name: 'Maria', email: 'maria@gmail.com', password: 'teste', isAdmin: false})
+    User.create({name: 'Joao', email: 'jao@jao.com', password: 'teste', isAdmin: false, logincontagem: 0})
+    User.create({name: 'Pedro', email: 'Pedro@gmail.com', password: 'teste', isAdmin: false, logincontagem: 0})
+    User.create({name: 'Guilherme', email: 'Gui@gmail.com', password: 'teste', isAdmin: false, logincontagem: 0})
+    User.create({name: 'Maria', email: 'maria@gmail.com', password: 'teste', isAdmin: false, logincontagem: 0})
 
     const filme1 = new Filme({
         Title: 'Interestelar',

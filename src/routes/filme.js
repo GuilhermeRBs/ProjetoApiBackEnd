@@ -63,7 +63,7 @@ router.put('/filme/:id', Auth.checkToken, async (req, res) => {
 
 })
 
-router.delete('/filme/:id', Auth.checkToken, Admin.checkAdm, async (req,res) =>{
+router.delete('/filme/:id', Admin.checkAdm, async (req,res) =>{
     
     const filme = await Filme.findByIdAndDelete(req.params.id)
     return res.status(200).json({ filme, msg:'Filme deletado'})

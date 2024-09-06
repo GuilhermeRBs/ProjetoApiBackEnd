@@ -14,6 +14,10 @@ router.post('/auth/login', async (req, res) => {
 
     const user = await User.findOne({ email })
 
+    if (!user) {
+        return res.status(404).json({ msg: 'Usuário ou Senha invalida!' })
+    }
+
     user.logincontagem += 1
     await user.save()
 
@@ -24,10 +28,6 @@ router.post('/auth/login', async (req, res) => {
 
     if (!password) {
         return res.status(422).json({ msg: 'A senha é obrigatória!' })
-    }
-
-    if (!user) {
-        return res.status(404).json({ msg: 'Usuário ou Senha invalida!' })
     }
 
     //Check senha igual
@@ -47,8 +47,6 @@ router.post('/auth/login', async (req, res) => {
 
 
         res.status(200).json({ msg: 'Autenticação realizada com sucesso', token, decoded })
-
-
 
         
     } catch (err) {

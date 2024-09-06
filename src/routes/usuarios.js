@@ -48,7 +48,7 @@ router.post('/user/register', async(req, res) => {
         email,
         password: passwordHash,
         isAdmin: false,
-        logou: '1'
+        logincontagem: 0
     })
 
     await user.save()
@@ -79,7 +79,7 @@ router.put("/user/:id", Auth.checkToken, async (req, res) => {
 })
 
 // Rota privada - retorna todos os usuários
-router.get('/user/:id',  async (req, res) => {
+router.get('/user/', Admin.checkAdm, async (req, res) => {
     const { limite = 10, pagina = 1 } = req.query;
     
     try{
@@ -93,7 +93,7 @@ router.get('/user/:id',  async (req, res) => {
 }
 })
 
-router.get("/user/:id",  async (req, res) => {
+router.get("/user/:id", Admin.checkAdm, async (req, res) => {
 
     const id = req.params.id
  
@@ -121,7 +121,7 @@ router.get("/user/contagem/:id",  async (req, res) => {
 })
 
 // Rota privada de deletar usuário
-router.delete("/user/admin/:id", Auth.checkToken, Admin.checkAdm, async (req, res) => {
+router.delete("/user/admin/:id",  Admin.checkAdm, async (req, res) => {
  
     const id = req.params.id
 
@@ -138,7 +138,7 @@ router.delete("/user/admin/:id", Auth.checkToken, Admin.checkAdm, async (req, re
 })
 
 //Registrar admin
-router.post("/user/admin/register", Auth.checkToken, Admin.checkAdm, async (req, res) => {
+router.post("/user/admin/register", Admin.checkAdm, async (req, res) => {
     
     const {name, email, password, confirmpassword} = req.body
 
