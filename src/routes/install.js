@@ -15,7 +15,8 @@ router.get("/install", async (req, res) => {
         name: 'Admin',
         email: 'admin@admin.com',
         password: passwordHash, 
-        isAdmin: true
+        isAdmin: true,
+        logincontagem: 0
     }) 
     user.save()
     User.create({name: 'Joao', email: 'jao@jao.com', password: 'teste', isAdmin: false})

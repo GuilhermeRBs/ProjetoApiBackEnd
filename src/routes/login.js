@@ -12,6 +12,11 @@ router.post('/auth/login', async (req, res) => {
 
     const { email, password } = req.body
 
+    const user = await User.findOne({ email })
+
+    user.logincontagem += 1
+    await user.save()
+
     //validacao
     if (!email) {
         return res.status(422).json({ msg: 'O email é obrigatório!' })
@@ -20,9 +25,6 @@ router.post('/auth/login', async (req, res) => {
     if (!password) {
         return res.status(422).json({ msg: 'A senha é obrigatória!' })
     }
-
-    //Check user existe
-    const user = await User.findOne({ email: email })
 
     if (!user) {
         return res.status(404).json({ msg: 'Usuário ou Senha invalida!' })
@@ -36,14 +38,17 @@ router.post('/auth/login', async (req, res) => {
 
     //Criação token
     try {
+
         const secret = process.env.SECRET
-        const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin },
+        const token = jwt.sign({ id: user._id, isAdmin: user.isAdmin  },
             secret,
         )
         const decoded = jwtDecode(token)
 
 
         res.status(200).json({ msg: 'Autenticação realizada com sucesso', token, decoded })
+
+
 
         
     } catch (err) {

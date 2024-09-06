@@ -47,7 +47,8 @@ router.post('/user/register', async(req, res) => {
         name,
         email,
         password: passwordHash,
-        isAdmin: false
+        isAdmin: false,
+        logou: '1'
     })
 
     await user.save()
@@ -78,7 +79,7 @@ router.put("/user/:id", Auth.checkToken, async (req, res) => {
 })
 
 // Rota privada - retorna todos os usuários
-router.get('/user/', Auth.checkToken, Admin.checkAdm,async (req, res) => {
+router.get('/user/:id',  async (req, res) => {
     const { limite = 10, pagina = 1 } = req.query;
     
     try{
@@ -92,8 +93,21 @@ router.get('/user/', Auth.checkToken, Admin.checkAdm,async (req, res) => {
 }
 })
 
-// Rota privada por ID
-router.get("/user/:id", Auth.checkToken, Admin.checkAdm, async (req, res) => {
+router.get("/user/:id",  async (req, res) => {
+
+    const id = req.params.id
+ 
+    const user = await User.findById(id, '-password')
+
+    if(!user) {
+        return res.status(404).json({msg: 'Usuário não encontrado!'})
+    }
+    
+    res.status(200).json({ user }) 
+})
+
+// Rota verificar quantidade login
+router.get("/user/contagem/:id",  async (req, res) => {
 
     const id = req.params.id
  
